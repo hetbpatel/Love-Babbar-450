@@ -61,3 +61,30 @@ bool isInterleave(string A, string B, string C)
 }
 
 // ----------------------------------------------------------------------------------------------------------------------- //
+
+//User function template for C++
+
+class Solution{
+  public:
+    /*You are required to complete this method */
+    bool isTrue(string A,string B,string C,int n,int m,int k,vector<vector<int>> &dp)
+    {
+        if(k == 0) return true;
+        if(dp[n][m] != -1) return dp[n][m];
+        bool temp1=false,temp2=false;
+        if(n > 0 and A[n-1] == C[k-1]) temp1=isTrue(A,B,C,n-1,m,k-1,dp);
+        if(m > 0 and B[m-1] == C[k-1]) temp2=isTrue(A,B,C,n,m-1,k-1,dp);
+        return dp[n][m]=temp1||temp2;
+    }
+    bool isInterleave(string A, string B, string C) 
+    {
+         int n=A.size();
+         int m=B.size();
+         int k=C.size();
+         vector<vector<int>> dp(n+1,vector<int>(m+1,-1));
+         return isTrue(A,B,C,n,m,k,dp);
+    }
+
+};
+
+// ----------------------------------------------------------------------------------------------------------------------- //
